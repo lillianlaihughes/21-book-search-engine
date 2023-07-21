@@ -2,12 +2,12 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
 // user functions
-import { ME_QUERY } from '../utils/queries';
+import { GET_ME_QUERY } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 import { removeBookId } from '../utils/localStorage';
 
 // LIL TODO: do I need this line still?
-import { getMe, deleteBook } from '../utils/API';
+// import { getMe, deleteBook } from '../utils/API';
 
 // auth middleware
 import Auth from '../utils/auth';
@@ -16,7 +16,7 @@ import Auth from '../utils/auth';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 
 const SavedBooks = () => {
-  const { loading, data } = useQuery(ME_QUERY);
+  const { loading, data } = useQuery(GET_ME_QUERY);
   console.log(data);
   const userData = data?.me || {};
 
@@ -42,13 +42,15 @@ const SavedBooks = () => {
       };
 
       userData(updatedUser);
+
+      removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }
   };
 
   // if data isn't here yet...
-  if (!userDataLength) {
+  if (!userData) {
     return <h2>LOADING...</h2>;
   }
 
