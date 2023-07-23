@@ -9,7 +9,7 @@ const typeDefs = gql`
     savedBooks: [Book]
   }
 
-  type Book {
+  type bookData {
     bookId: ID!
     authors: [String]
     description: String
@@ -29,7 +29,7 @@ const typeDefs = gql`
     me: User
   }
 
-  # LIL TODO: update these mutations
+  # LIL TODO: update these mutations -- should newBook be bookData! instead of String!
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
